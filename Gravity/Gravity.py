@@ -1,7 +1,6 @@
+import math
 import time
 import tkinter as tk
-
-import math
 
 
 class Gravity:
@@ -31,13 +30,25 @@ class Gravity:
             for p2 in self.points:
                 if p1 == p2:
                     continue
+
                 relate = self.get_spatial_relationship(p1, p2)
                 f_gravity = 100 * p1['m'] * p2['m'] / relate['r2']
                 f_x = math.sin(relate['theta']) * f_gravity
                 f_y = math.cos(relate['theta']) * f_gravity
-                print(relate['theta'])
-                # p1['ax'] += f_x / p1['m']
-                # p1['ay'] += f_y / p1['m']
+                dax = f_x / p1['m']
+                day = f_y / p1['y']
+
+                print("dx: ", relate['dx'], ", dy: ", relate['dy'], ", theta: ", relate['theta'])
+
+                # if relate['dx'] < 0:
+                #     p1['ax'] -= dax
+                # else:
+                #     p1['ax'] += dax
+                # if relate['dy'] < 0:
+                #     p1['ay'] += day
+                # else:
+                #     p1['ay'] -= day
+
             p1['vx'] += p1['ax'] * dt
             p1['vy'] += p1['ay'] * dt
             p1['x'] += p1['vx'] * dt
